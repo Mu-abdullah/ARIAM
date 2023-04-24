@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "339094526856",
+    "project_id": "ariam-6d0e1",
+    "storage_bucket": "ariam-6d0e1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:339094526856:android:9e58eae0ab53416da9383d",
+        "android_client_info": {
+          "package_name": "com.example.ariam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "339094526856-41oiupkeot36iojm8ss5l0ev2lr3vkpj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbCAn7X8GFGy1FlynIDHRI9l9bUSrVvw4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "339094526856-41oiupkeot36iojm8ss5l0ev2lr3vkpj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
