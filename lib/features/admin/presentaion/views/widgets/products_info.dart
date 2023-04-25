@@ -2,6 +2,7 @@ import 'package:ariam/features/admin/presentaion/manger/add_products_cubit/add_p
 import 'package:ariam/features/admin/presentaion/manger/add_products_cubit/add_products_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../../../core/utils/colors.dart';
@@ -10,7 +11,7 @@ import '../../../../../core/widgets/custom_button.dart';
 import '../../../../../core/widgets/custom_form_field.dart';
 
 class NewestProductDetails extends StatelessWidget {
-  const NewestProductDetails({
+  NewestProductDetails({
     super.key,
     required this.formKey,
     required this.productName,
@@ -28,14 +29,13 @@ class NewestProductDetails extends StatelessWidget {
   final TextEditingController productDiscount;
   final TextEditingController dayToDelivery;
   final TextEditingController productDescription;
-
+  String? categoryValue;
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AddProductsCubit, AddProductsState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+      listener: (context, state) {},
       builder: (context, state) {
+        AddProductsCubit cubit = AddProductsCubit.get(context);
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: Form(
@@ -51,7 +51,12 @@ class NewestProductDetails extends StatelessWidget {
                   onChange: (value) {},
                   prefix: const Icon(Iconsax.receipt_item),
                   type: TextInputType.name,
-                  validate: (vlaue) {},
+                  validate: (value) {
+                    if (value.isEmpty) {
+                      return "It's empty";
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(
                   height: 10,
@@ -69,7 +74,12 @@ class NewestProductDetails extends StatelessWidget {
                         onChange: (value) {},
                         prefix: const Icon(Iconsax.wallet_1),
                         type: TextInputType.number,
-                        validate: (vlaue) {},
+                        validate: (value) {
+                          if (value.isEmpty) {
+                            return "It's empty";
+                          }
+                          return null;
+                        },
                       ),
                     ),
                     const SizedBox(
@@ -82,40 +92,18 @@ class NewestProductDetails extends StatelessWidget {
                       width: 5,
                     ),
                     Expanded(
-                      flex: 2,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                              width: 1,
-                              color: AppColors.blackColor.withOpacity(.5),
-                            ),
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(4),
-                          child: DropdownButton<String>(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(8),
-                            ),
-                            underline: const Text(""),
-                            value: dropdownValue,
-                            onChanged: (newValue) {
-                              // setState(() {
-                              //   dropdownValue = newValue;
-                              // });
-                            },
-                            items: <String>[
-                              'Option 1',
-                              'Option 2',
-                              'Option 3',
-                              'Option 4'
-                            ].map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                          ),
-                        ),
+                      flex: 1,
+                      child: NeumorphicSwitch(
+                        style: const NeumorphicSwitchStyle(
+                            lightSource: LightSource(25, 10),
+                            activeThumbColor: AppColors.whiteColor,
+                            inactiveThumbColor: AppColors.blackColor,
+                            activeTrackColor: AppColors.secondColor,
+                            inactiveTrackColor: AppColors.pinkColor),
+                        value: cubit.isDisc,
+                        onChanged: (bool value) {
+                          cubit.disc();
+                        },
                       ),
                     ),
                   ],
@@ -123,16 +111,25 @@ class NewestProductDetails extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                CustomTextField(
-                  controller: productDiscount,
-                  hint: 'Discount',
-                  isPassword: false,
-                  label: 'Discount',
-                  maxLines: 1,
-                  onChange: (value) {},
-                  prefix: const Icon(Iconsax.discount_circle),
-                  type: TextInputType.number,
-                  validate: (vlaue) {},
+                Center(
+                  child: cubit.isDisc == true
+                      ? CustomTextField(
+                          controller: productDiscount,
+                          hint: 'Discount',
+                          isPassword: false,
+                          label: 'Discount',
+                          maxLines: 1,
+                          onChange: (value) {},
+                          prefix: const Icon(Iconsax.discount_circle),
+                          type: TextInputType.number,
+                          validate: (value) {
+                            if (value.isEmpty) {
+                              return "It's empty";
+                            }
+                            return null;
+                          },
+                        )
+                      : null,
                 ),
                 const SizedBox(
                   height: 10,
@@ -146,7 +143,12 @@ class NewestProductDetails extends StatelessWidget {
                   onChange: (value) {},
                   prefix: const Icon(Iconsax.calendar),
                   type: TextInputType.number,
-                  validate: (vlaue) {},
+                  validate: (value) {
+                    if (value.isEmpty) {
+                      return "It's empty";
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(
                   height: 10,
@@ -160,13 +162,22 @@ class NewestProductDetails extends StatelessWidget {
                   onChange: (value) {},
                   prefix: const Icon(Iconsax.calendar),
                   type: TextInputType.text,
-                  validate: (vlaue) {},
+                  validate: (value) {
+                    if (value.isEmpty) {
+                      return "It's empty";
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 CustomButton(
-                  function: () {},
+                  function: () {
+                    if (formKey.currentState!.validate()) {
+                      
+                    }
+                  },
                   buttonName: "Upload",
                   width: 1,
                 )

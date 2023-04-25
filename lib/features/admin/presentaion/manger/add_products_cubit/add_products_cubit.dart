@@ -1,10 +1,12 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../../core/entities/admin_model.dart';
 import '../../../../../core/utils/assets.dart';
+import '../../../../../core/utils/texts.dart';
 import '../../../../../core/widgets/custom_snack_bar.dart';
 import 'add_products_state.dart';
 import 'package:firebase_storage/firebase_storage.dart' as fire_storage;
@@ -75,5 +77,26 @@ class AddProductsCubit extends Cubit<AddProductsState> {
     } catch (e) {
       emit(Failed(e.toString()));
     }
+  }
+////////////////////drop menu////////////////////
+  String? selectedValue;
+  List<DropdownMenuItem<String>> get dropdownItems {
+    List<DropdownMenuItem<String>> menuItems = [
+      DropdownMenuItem(value: "Yes", child: Texts().titleText(text: "Yes")),
+      DropdownMenuItem(value: "No", child: Texts().titleText(text: "No")),
+    ];
+    return menuItems;
+  }
+
+  void changeValue(String value) {
+    selectedValue = value;
+    emit(ChangeToggle());
+  }
+
+  ////////////////////is discount////////////////////
+  bool isDisc = false;
+  void disc() {
+    isDisc = !isDisc;
+    emit(IsDiscount());
   }
 }

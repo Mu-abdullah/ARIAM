@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../features/admin/presentaion/manger/add_products_cubit/add_products_cubit.dart';
 import '../../features/admin/presentaion/views/add_products.dart';
+import '../../features/admin/presentaion/views/widgets/add_new_products_details_screen.dart';
 import '../../features/auth/sign_in/presentation/manger/cubit/sign_in_cubit.dart';
 import '../../features/boarding_screen/views/onboarding_screen.dart';
 import '../../features/bottom_navigation_bottom/presentation/manger/home_cubit/bottom_navigation_cubit.dart';
@@ -30,12 +31,10 @@ abstract class AppRouter {
   static const signUpScreen = '/signUpScreen';
   static const adminScreen = '/adminScreen';
   static const adminAddProductsScreen = '/adminAddProductsScreen';
-void tester(){
-   
-}
+  static const addProductsDitailsScreen = '/addProductsDitailsScreen';
+  void tester() {}
   static final router = GoRouter(
-    
-    initialLocation: initialRoute ,
+    initialLocation: adminAddProductsScreen /*initialRoute*/,
     routes: [
       GoRoute(
         path: bottomNavigationScreen,
@@ -93,7 +92,14 @@ void tester(){
         path: adminAddProductsScreen,
         builder: (context, state) => BlocProvider(
           create: (context) => AddProductsCubit(),
-          child: const AdminAddProductsScreenView(),
+          child: const AddImageProductsScreenView(),
+        ),
+      ),
+      GoRoute(
+        path: addProductsDitailsScreen,
+        builder: (context, state) => BlocProvider(
+          create: (context) => AddProductsCubit(),
+          child: const AddNewProductDetailsScreen(),
         ),
       ),
     ],

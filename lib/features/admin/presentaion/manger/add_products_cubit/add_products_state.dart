@@ -10,6 +10,10 @@ class Loading extends AddProductsState {}
 
 class Succsess extends AddProductsState {}
 
+class ChangeToggle extends AddProductsState {}
+
+class IsDiscount extends AddProductsState {}
+
 class Failed extends AddProductsState {
   final String errorMsg;
 
